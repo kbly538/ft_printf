@@ -1,0 +1,6 @@
+.vscode/launch.json
+.vscode/tasks.json
+.vscode/settings.json
+todo.txt
+tests.c
+/ft_print_tester
