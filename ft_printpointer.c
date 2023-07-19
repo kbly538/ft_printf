@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printpointer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbilgili <kbilgili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kbilgili <kbilgili@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 02:26:46 by kbilgili          #+#    #+#             */
-/*   Updated: 2023/07/18 02:19:58 by kbilgili         ###   ########.fr       */
+/*   Updated: 2023/07/18 15:04:34 by kbilgili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

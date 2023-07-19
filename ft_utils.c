@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbilgili <kbilgili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kbilgili <kbilgili@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 02:29:58 by kbilgili          #+#    #+#             */
-/*   Updated: 2023/07/18 03:27:27 by kbilgili         ###   ########.fr       */
+/*   Updated: 2023/07/19 03:06:38 by kbilgili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+ 
 int	ft_digitcountint(int n)
 {
 	unsigned int	i;
@@ -54,4 +55,22 @@ char	*ft_utoa(unsigned int n)
 int	ft_isflag(char c)
 {
 	return (c == ' ' || c == '+' || c == '#');
+}
+
+char	*createpadding(char paddingchar, int paddinglength)
+{
+	char 	*paddingstr;
+	int		i;
+	
+	paddingstr = malloc(sizeof(char) * paddinglength + 1);
+	if (!paddingstr)
+		return (NULL);
+	i = 0;
+	while (i < paddinglength)
+	{
+		paddingstr[i] = paddingchar;
+		i++;
+	}
+	paddingstr[paddinglength] = '\0';
+	return (paddingstr);
 }

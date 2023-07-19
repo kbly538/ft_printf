@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printstring.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbilgili <kbilgili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kbilgili <kbilgili@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 02:59:30 by kbilgili          #+#    #+#             */
-/*   Updated: 2023/07/18 02:17:56 by kbilgili         ###   ########.fr       */
+/*   Updated: 2023/07/19 04:19:09 by kbilgili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,5 @@ int		ft_printstring(const char *s)
 		return (strlen);
 	else
 		return (strlen+1);
+	
 }

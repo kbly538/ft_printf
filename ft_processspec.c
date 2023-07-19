@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_processspec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbilgili <kbilgili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kbilgili <kbilgili@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 02:55:42 by kbilgili          #+#    #+#             */
-/*   Updated: 2023/07/18 04:04:33 by kbilgili         ###   ########.fr       */
+/*   Updated: 2023/07/18 15:04:31 by kbilgili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

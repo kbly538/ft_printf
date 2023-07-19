@@ -50,21 +50,21 @@ OBJS = $(SRC:%.c=%.o)
 BONUS_OBJS = $(BONUS_SRC:%.c=%.o)
 
 .c.o: $(SRCS) $(BONUS_SRCS)
-	$(CC) $(CFLAGS) -c -o $@ $<
+	@$(CC) $(CFLAGS) -c -o $@ $<
 
 $(NAME): $(OBJS)
-	$(AR) $@ $^
+	@$(AR) $@ $^
 
 bonus: $(OBJS) $(BONUS_OBJS)
-	$(AR) $(NAME) $^
+	@$(AR) $(NAME) $^
 
 all: $(NAME)
 
 clean:
-	rm -rf *.o
+	@$(RM) -rf *.o
 
 fclean: clean
-	rm -rf $(NAME)
+	@$(RM) -rf $(NAME)
 
 re: clean all
 

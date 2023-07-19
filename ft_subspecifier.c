@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_subspecifier.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbilgili <kbilgili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kbilgili <kbilgili@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 04:10:41 by kbilgili          #+#    #+#             */
-/*   Updated: 2023/07/18 01:18:14 by kbilgili         ###   ########.fr       */
+/*   Updated: 2023/07/18 15:04:18 by kbilgili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

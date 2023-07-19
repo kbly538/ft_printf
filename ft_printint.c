@@ -3,23 +3,96 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printint.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbilgili <kbilgili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kbilgili <kbilgili@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 02:29:06 by kbilgili          #+#    #+#             */
-/*   Updated: 2023/07/18 01:31:05 by kbilgili         ###   ########.fr       */
+/*   Updated: 2023/07/19 06:10:03 by kbilgili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printint(int n)
+char *handlepadding(char *src, int len, flagparty_t *flags)
+{
+	char 	*paddingstr;
+	char	*joined;
+
+
+	if (flags->precision != 0)
+		flags->zero = 0;
+
+	if (flags->width > len)
+	{
+		if (flags->zero)
+			paddingstr = createpadding('0', (flags->width - len));
+		else
+			paddingstr = createpadding(' ', (flags->width - len));
+		if (flags->minus)
+		{
+			joined = ft_strjoin(src, paddingstr);
+			
+		}
+		else
+		{
+			printf("pd: %s\n", paddingstr);
+			printf("s: %s\n", src);
+			joined = ft_strjoin(paddingstr, src);
+		}
+		
+		free(paddingstr);
+		free(src);
+		return (joined);
+	}
+	
+	return (src);
+}
+
+char *handleprecision(char *src, int len, flagparty_t *flags)
+{
+	char	*paddingstr;
+	char	*joined;
+
+	if (len <= flags->precision && (flags->precision - len > 0))
+	{
+		paddingstr = createpadding('0', flags->precision - len);
+		joined = ft_strjoin(paddingstr, src);
+		free(paddingstr);
+		free(src);
+		return (joined);
+	}
+	return (src);
+}
+
+int ft_printint(int n, flagparty_t *flags)
 {
 	int len;
 	char *str;
+	char *prec;
+	char *padded;
+	
 	
 	str = ft_itoa(n);
+	str = ft_substr(str, 1, ft_strlen(str));
+	if (!str)
+		return (0);
 	len = ft_strlen(str);
-	ft_printstring(str);
-	free(str);
+	
+	prec = handleprecision(str, len, flags);
+	len = 0;
+	if (flags->space && n >= 0)
+	{
+		ft_printchar(' ');
+		len++;
+	}
+	if (flags->plus && n >= 0)
+	{
+		ft_printchar('+');
+		len++;
+	}
+	padded = handlepadding(prec, ft_strlen(prec), flags);
+	len += ft_strlen(padded);
+	ft_printstring(padded);
+	free(padded);
+
 	return (len);
 }

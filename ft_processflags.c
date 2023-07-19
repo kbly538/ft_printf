@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_processflags.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbilgili <kbilgili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kbilgili <kbilgili@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 02:38:50 by kbilgili          #+#    #+#             */
-/*   Updated: 2023/07/18 04:52:04 by kbilgili         ###   ########.fr       */
+/*   Updated: 2023/07/18 15:04:21 by kbilgili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
