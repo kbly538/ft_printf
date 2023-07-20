@@ -6,7 +6,7 @@
 /*   By: kbilgili <kbilgili@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 02:59:30 by kbilgili          #+#    #+#             */
-/*   Updated: 2023/07/20 04:19:55 by kbilgili         ###   ########.fr       */
+/*   Updated: 2023/07/20 05:25:13 by kbilgili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ int		ft_printstring(const char *s, flagparty_t *flags)
 	} 
 	else if (s[0] == '0' && flags->precision != -1)
 	{
-		strlen = ft_printchar('0');
+		strlen = write(1, "0", 1);
 		result = 1;
 	}
 	else if (s[0] == '0' && flags->precision == -1 && flags->width != 0)
-		result = ft_printchar(' ');
+		result = write(1, " ", 1);
 	else if (s[0] == '0' && flags->precision == -1 && flags->width == 0)
 	{
 		strlen = 0;

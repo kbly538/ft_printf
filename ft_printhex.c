@@ -6,7 +6,7 @@
 /*   By: kbilgili <kbilgili@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 02:26:46 by kbilgili          #+#    #+#             */
-/*   Updated: 2023/07/18 15:04:37 by kbilgili         ###   ########.fr       */
+/*   Updated: 2023/07/20 05:25:57 by kbilgili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_printhex(char lettercase, long num)
 	size = 0;
 	if (num == 0)
 	{
-		ft_printchar('0');
+		write(1, "0", 1);
 		return (1);
 	}
 	
@@ -49,7 +49,6 @@ int	ft_printhex(char lettercase, long num)
 		num /= 16;
 	}
 	len = ft_strlen(hexstr);
-	ft_printstring(hexstr);
 	free(hexstr);
 	
 	return (len);

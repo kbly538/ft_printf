@@ -6,7 +6,7 @@
 /*   By: kbilgili <kbilgili@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 02:55:42 by kbilgili          #+#    #+#             */
-/*   Updated: 2023/07/20 02:43:03 by kbilgili         ###   ########.fr       */
+/*   Updated: 2023/07/20 05:24:05 by kbilgili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int parseformat(const char *s, flagparty_t *flags, va_list args)
 	{
 		if (str[index] == '%')
 		{
+			
 			index++;
 			index += parseflags(str + index, flags);
 			fixflags(flags, str[index]);
@@ -36,13 +37,18 @@ int parseformat(const char *s, flagparty_t *flags, va_list args)
 			{
 				int tmp = va_arg(args, int);
 				totallength += ft_printint(tmp, flags);
+				
 			}
-			resetflags(flags);
+			else if (str[index] == 'c')
+			{
+				int tmp = va_arg(args, int);
+				totallength += write(1, &tmp, 1);
+			}
 		}
 		else
-			totallength+= ft_printchar(str[index]);
+			totallength+= write(1, &str[index], 1);
 		index++;
-
+		resetflags(flags);	
 	}
 	free(str);
 	return (totallength);

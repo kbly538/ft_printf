@@ -6,7 +6,7 @@
 /*   By: kbilgili <kbilgili@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 10:44:52 by anlima            #+#    #+#             */
-/*   Updated: 2023/07/20 03:41:44 by kbilgili         ###   ########.fr       */
+/*   Updated: 2023/07/20 05:21:29 by kbilgili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct flagparty_t
 int			ft_printf(const char	*src, ...);
 int			ft_printhex(char c, long l);
 int			ft_printpointer(size_t num);
-int			ft_printchar(char c);
+int			ft_printchar(char c, flagparty_t *flags);
 int			ft_printint(int i, flagparty_t *flags);
 int			ft_printuint(unsigned int i);
 int		ft_printstring(const char *s, flagparty_t *flags);

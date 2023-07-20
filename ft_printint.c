@@ -6,7 +6,7 @@
 /*   By: kbilgili <kbilgili@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 02:29:06 by kbilgili          #+#    #+#             */
-/*   Updated: 2023/07/20 04:42:27 by kbilgili         ###   ########.fr       */
+/*   Updated: 2023/07/20 05:18:49 by kbilgili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	handleleftjustified(int n, long num, char *numstr, flagparty_t *flags)
 
 	count = 0;
 	if (n < 0 && n != 0)
-		count += ft_printchar('-');
+		count += write(1, "-", 1);
 	count += handlepresicion(num, flags);
 	count += ft_printstring(numstr, flags);
 	free(numstr);
@@ -71,17 +71,17 @@ int	handlerightjustified(int n, long num, char *numstr, flagparty_t *flags)
 	count = 0;
 	if (flags->plus && n >= 0)
 	{
-		count += ft_printchar('+');
+		count += write(1, "+", 1);
 		flags->width--;
 	}
 	if (flags->space && n >= 0)
-		count += ft_printchar(' ');
+		count += write(1, " ", 1);
 	if (n < 0 && n != 0 && flags->zero)
-		count += ft_printchar('-');
+		count += write(1, "-", 1);
 	if ((flags->width || flags->precision || flags->zero))
 		count += handlepadding(num, flags);
 	if (n < 0 && n != 0 && !flags->zero)
-		count += ft_printchar('-');
+		count += write(1, "-", 1);
 	if (flags->precision != -1)
 		count += handlepresicion(num, flags);
 	count += ft_printstring(numstr, flags);

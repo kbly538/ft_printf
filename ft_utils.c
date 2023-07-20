@@ -6,7 +6,7 @@
 /*   By: kbilgili <kbilgili@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 02:29:58 by kbilgili          #+#    #+#             */
-/*   Updated: 2023/07/20 02:33:50 by kbilgili         ###   ########.fr       */
+/*   Updated: 2023/07/20 05:21:39 by kbilgili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int printpadding(char c, int count)
 	counter = 0;
 	while (count)
 	{
-		counter += ft_printchar(c);
+		counter += write(1, &c, 1);
 		count--;
 	}
 	return (counter);

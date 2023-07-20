@@ -6,7 +6,7 @@
 /*   By: kbilgili <kbilgili@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 04:00:26 by kbilgili          #+#    #+#             */
-/*   Updated: 2023/07/20 04:18:46 by kbilgili         ###   ########.fr       */
+/*   Updated: 2023/07/20 05:11:38 by kbilgili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ int ft_getwidth(char *numericstr)
 int ismodifier(char c)
 {
 	const char *modifiers = "cspdiuxX%";
-	while (*modifiers++)
+	while (*modifiers)
 	{
-		if (c == *modifiers)
+		if (c == *modifiers++)
 			return (1);
 	}
 	return (0);
@@ -83,9 +83,9 @@ int parseflags(char *str, flagparty_t *flags)
 	if (!flagsstr)
 		return (0);
 	index = 0;
-
 	while (!ismodifier(str[index]) && (str[index] != '\0'))
 	{
+
 		if (str[index] == '#')
 			flags->hash = 1;
 		else if (str[index] == '-')
