@@ -6,7 +6,7 @@
 /*   By: kbilgili <kbilgili@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 04:00:26 by kbilgili          #+#    #+#             */
-/*   Updated: 2023/07/19 04:02:20 by kbilgili         ###   ########.fr       */
+/*   Updated: 2023/07/20 04:18:46 by kbilgili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,7 @@ int ft_getwidth(char *numericstr)
 
 	numlen = 0;
 	while (ft_isdigit(numericstr[numlen]))
-	{
-
 		numlen++;
-	}
 
 	tempnumericstr = ft_substr(numericstr, 0, numlen);
 	widthsize = ft_atoi(tempnumericstr);
@@ -48,9 +45,7 @@ int ismodifier(char c)
 	while (*modifiers++)
 	{
 		if (c == *modifiers)
-		{
 			return (1);
-		}
 	}
 	return (0);
 }
@@ -101,6 +96,11 @@ int parseflags(char *str, flagparty_t *flags)
 		{
 			flags->space = 1;
 		}
+		else if (str[index] == '.' && (str[index + 1] == '0' || ismodifier(str[index + 1])))
+		{
+	
+			flags->precision = -1;
+		}
 		else if (str[index] == '.' && !ismodifier(str[index + 1]) && str[index + 1] != '\0')
 		{
 			widthsize = ft_getwidth(str + index + 1);
@@ -128,8 +128,10 @@ void fixflags(flagparty_t *flags, char c)
 		flags->zero = 0;
 	if (flags->minus)
 		flags->zero = 0;
-	if (flags->plus && flags->space)
+	if (flags->plus)
 		flags->space = 0;
 	if (c != 'x' && c != 'X')
 		flags->hash = 0;
+	if (flags->precision == -1)
+		flags->zero = 0;
 }

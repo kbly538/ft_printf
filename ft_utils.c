@@ -6,12 +6,29 @@
 /*   By: kbilgili <kbilgili@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 02:29:58 by kbilgili          #+#    #+#             */
-/*   Updated: 2023/07/19 03:06:38 by kbilgili         ###   ########.fr       */
+/*   Updated: 2023/07/20 02:33:50 by kbilgili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
  
+int	ft_getldlen(long num)
+{
+	int length;
+	
+	length = 0;
+
+	if (!num)
+		return (1);
+	while (num)
+	{
+		num /= 10;
+		length++;
+	}
+	return length;
+}
+
+
 int	ft_digitcountint(int n)
 {
 	unsigned int	i;
@@ -57,20 +74,15 @@ int	ft_isflag(char c)
 	return (c == ' ' || c == '+' || c == '#');
 }
 
-char	*createpadding(char paddingchar, int paddinglength)
+int printpadding(char c, int count)
 {
-	char 	*paddingstr;
-	int		i;
-	
-	paddingstr = malloc(sizeof(char) * paddinglength + 1);
-	if (!paddingstr)
-		return (NULL);
-	i = 0;
-	while (i < paddinglength)
+	int counter;
+
+	counter = 0;
+	while (count)
 	{
-		paddingstr[i] = paddingchar;
-		i++;
+		counter += ft_printchar(c);
+		count--;
 	}
-	paddingstr[paddinglength] = '\0';
-	return (paddingstr);
+	return (counter);
 }

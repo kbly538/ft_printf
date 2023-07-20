@@ -6,7 +6,7 @@
 /*   By: kbilgili <kbilgili@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 02:55:42 by kbilgili          #+#    #+#             */
-/*   Updated: 2023/07/19 05:23:24 by kbilgili         ###   ########.fr       */
+/*   Updated: 2023/07/20 02:43:03 by kbilgili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ int parseformat(const char *s, flagparty_t *flags, va_list args)
 			resetflags(flags);
 		}
 		else
-			totallength += ft_printchar(str[index]);
+			totallength+= ft_printchar(str[index]);
 		index++;
+
 	}
 	free(str);
 	return (totallength);

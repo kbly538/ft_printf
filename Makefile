@@ -8,7 +8,7 @@ RM				=	rm -rf
 
 SRC				=	ft_printf ft_printchar ft_printint ft_printstring \
 					ft_printhex ft_printpointer ft_printuint ft_utils \
-					ft_processspec ft_processflags ft_flags
+					ft_processspec ft_processflags ft_flags ft_ldtoa
 SRCS 			=	$(addsuffix .c, $(SRC))
 
 OBJ_DIR			=	obj
@@ -44,9 +44,16 @@ fclean:				clean
 
 re:					fclean all
 
-test:				all
+strict-test:				all
 					gcc $(CFLAGS) tests.c $(NAME)
-					@echo "=============== Starting tests ================"
+					@echo "=============== Starting strict tests ================"
+					@./a.out | cat -e
+					@echo "===============  Ending tests ================"
+
+
+test:				all
+					gcc tests.c $(NAME)
+					@echo "=============== Starting stricttests ================"
 					@./a.out | cat -e
 					@echo "===============  Ending tests ================"
 

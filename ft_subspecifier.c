@@ -6,7 +6,7 @@
 /*   By: kbilgili <kbilgili@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 04:10:41 by kbilgili          #+#    #+#             */
-/*   Updated: 2023/07/18 15:04:18 by kbilgili         ###   ########.fr       */
+/*   Updated: 2023/07/19 22:34:22 by kbilgili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,6 @@ static const char	*handleflags(const char *src, va_list copy)
 	}
 	return (src);
 }
-const char	*handlewidth();
-const char	*handlefprecision();
-
-
 
 const char	*ft_handlesubspecifiers(const char *src, va_list copy)
 {

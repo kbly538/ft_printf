@@ -6,84 +6,106 @@
 /*   By: kbilgili <kbilgili@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 02:29:06 by kbilgili          #+#    #+#             */
-/*   Updated: 2023/07/19 22:30:33 by kbilgili         ###   ########.fr       */
+/*   Updated: 2023/07/20 04:42:27 by kbilgili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char *handlepadding(char *src, int len, flagparty_t *flags)
+int	handlepadding(long n, flagparty_t *flags)
 {
-	char 	*paddingstr;
-	char	*joined;
+	int	numlen;
+	int	paddinglength;
+	int	printcount; 
 
-
-	if (flags->precision != 0)
-		flags->zero = 0;
-	if (flags->width > len)
+	numlen = ft_getldlen(n);
+	paddinglength = 0;
+	printcount = 0;
+	if (flags->width > flags->precision && flags->width > numlen)
 	{
-		if (flags->zero)
-			paddingstr = createpadding('0', (flags->width - len));
+		if (numlen > flags->precision)
+			paddinglength = flags->width - (n < 0) - numlen;
 		else
-			paddingstr = createpadding(' ', (flags->width - len));
-		if (flags->minus)
-		{
-			joined = ft_strjoin(src, paddingstr);
-		}
+			paddinglength = flags->width - (n < 0) - flags->precision;
+		if (flags->zero && n != 0)
+			printcount += printpadding('0', paddinglength);
 		else
-			joined = ft_strjoin(paddingstr, src);
-		free(paddingstr);
-		free(src);
-		return (joined);
+			printcount += printpadding(' ', paddinglength);
 	}
-	
-	return (src);
+	return (printcount);
 }
 
-char *handleprecision(char *src, int len, flagparty_t *flags)
+int	handlepresicion(long n, flagparty_t *flags)
 {
-	char	*paddingstr;
-	char	*joined;
+	int	numlen;
+	int	printcount;
 
-	if (len <= flags->precision && (flags->precision - len > 0))
-	{
-		paddingstr = createpadding('0', flags->precision - len);
-		joined = ft_strjoin(paddingstr, src);
-		free(paddingstr);
-		free(src);
-		return (joined);
-	}
-	return (src);
+	printcount = 0;
+	numlen = ft_getldlen(n);
+	if (flags->minus && flags->precision > numlen)
+		printcount += printpadding('0', flags->precision - numlen);
+	if (!flags->minus && flags->precision > numlen)
+		printcount += printpadding('0', flags->precision - numlen);
+	return (printcount);
 }
 
-int ft_printint(int n, flagparty_t *flags)
+int	handleleftjustified(int n, long num, char *numstr, flagparty_t *flags)
 {
-	int len;
-	char *str;
-	char *prec;
-	char *padded;
+	int	count;
 
-	str = ft_itoa(n);
-	if (!str)
-		return (0);
-	len = ft_strlen(str);
+	count = 0;
+	if (n < 0 && n != 0)
+		count += ft_printchar('-');
+	count += handlepresicion(num, flags);
+	count += ft_printstring(numstr, flags);
+	free(numstr);
+	if ((flags->width || flags->precision || flags->zero))
+		count += handlepadding(num, flags);
+	return (count);
+}
 
-	prec = handleprecision(str, len, flags);
-	len = 0;
-	if (flags->space && n >= 0)
-	{
-		ft_printchar(' ');
-		len++;
-	}
+int	handlerightjustified(int n, long num, char *numstr, flagparty_t *flags)
+{
+	int	count;
+
+	count = 0;
 	if (flags->plus && n >= 0)
 	{
-		ft_printchar('+');
-		len++;
+		count += ft_printchar('+');
+		flags->width--;
 	}
-	padded = handlepadding(prec, ft_strlen(prec), flags);
-	len += ft_strlen(padded);
-	ft_printstring(padded);
-	free(padded);
+	if (flags->space && n >= 0)
+		count += ft_printchar(' ');
+	if (n < 0 && n != 0 && flags->zero)
+		count += ft_printchar('-');
+	if ((flags->width || flags->precision || flags->zero))
+		count += handlepadding(num, flags);
+	if (n < 0 && n != 0 && !flags->zero)
+		count += ft_printchar('-');
+	if (flags->precision != -1)
+		count += handlepresicion(num, flags);
+	count += ft_printstring(numstr, flags);
+	free(numstr);
+	return (count);
+}
 
-	return (len);
+int	ft_printint(int n, flagparty_t *flags)
+{
+	int		printlen;
+	long	num;
+	char	*numstr;
+
+	printlen = 0;
+	num = n;
+	if (n < 0)
+	{
+		num *= -1;
+		flags->width--;
+	}
+	numstr = ft_ldtoa(num);
+	if (flags->minus)
+		printlen += handleleftjustified(n, num, numstr, flags);
+	else
+		printlen += handlerightjustified(n, num, numstr, flags);
+	return (printlen);
 }
