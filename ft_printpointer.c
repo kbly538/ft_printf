@@ -6,43 +6,57 @@
 /*   By: kbilgili <kbilgili@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 02:26:46 by kbilgili          #+#    #+#             */
-/*   Updated: 2023/07/18 15:04:34 by kbilgili         ###   ########.fr       */
+/*   Updated: 2023/07/21 04:44:17 by kbilgili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printpointer(size_t num)
-{
-	const char		*hexnumslower;
-	char			*hexstr;
-	int				size;
-	size_t			numcpy;
-	int				len;
 
-	hexnumslower = "0123456789abcdef"; 
-	numcpy = num;
-	size = 0;
+int	ft_printpointer(unsigned long int num, t_flagparty *flags)
+{
+	char	*hexstring;
+	int		printlen;
+
+	printlen = 0;
+	hexstring = ft_ptoa(num);
+
 	if (num == 0)
 	{
-		ft_printstring("(nil)");
-		return (5);
+		if (flags->minus)
+		{
+			printlen += write(1, "(nil)", 5);
+			printlen += printpadding(' ', flags->width - 5);
+		}
+		else
+		{
+			printlen += printpadding(' ', flags->width - 5);
+			printlen += write(1, "(nil)", 5);
+		}			
+		free(hexstring);
+		return (printlen);
 	}
-	while (numcpy && ++size)
-		numcpy /= 16;
-	hexstr = (char *)malloc(sizeof(char) * (size + 1));
-	if (!hexstr)
-		return (0);
-	hexstr[size--] = '\0';
-	while (num)
+	if (flags->minus && !flags->zero)
 	{
-		hexstr[size--] = ((char)hexnumslower[num % 16]);
-		num /= 16;
+		printlen += ft_print_hashed('x');
+		if (flags->precision)
+			printlen += printpadding('0', ft_precisionlen(hexstring, flags));
+		printlen += write(1, hexstring, ft_strlen(hexstring));
+		printlen += printpadding(' ', ft_paddinglen(hexstring, flags) - 2);
 	}
-	ft_printstring("0x");
-	ft_printstring(hexstr);
-	len = ft_strlen(hexstr);
-	free(hexstr);
-	
-	return (len + 2);
+	else if (!flags->minus)
+	{
+
+		
+		if (flags->zero)
+			printlen += printpadding('0', ft_paddinglen(hexstring, flags) - 2);
+		else
+			printlen += printpadding(' ', ft_paddinglen(hexstring, flags) - 2);
+		printlen += ft_print_hashed('x');
+		if (flags->precision )
+			printlen += printpadding('0', ft_precisionlen(hexstring, flags));
+		printlen += write(1, hexstring, ft_strlen(hexstring));
+	}
+	free(hexstring);
+	return (printlen);
 }

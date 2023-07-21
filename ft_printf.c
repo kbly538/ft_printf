@@ -6,19 +6,20 @@
 /*   By: kbilgili <kbilgili@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 02:55:42 by kbilgili          #+#    #+#             */
-/*   Updated: 2023/07/20 05:24:05 by kbilgili         ###   ########.fr       */
+/*   Updated: 2023/07/21 04:21:03 by kbilgili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-
-int parseformat(const char *s, flagparty_t *flags, va_list args)
+int	parseformat(const char *s, t_flagparty *flags, va_list args)
 {
-	char *str;
-	int index;
-	int totallength;
+	char	*str;
+	int		index;
+	int		totallength;
 
+	if (s == NULL)
+		return (0);
 	str = ft_strdup(s);
 	if (!str)
 		return (0);
@@ -26,42 +27,55 @@ int parseformat(const char *s, flagparty_t *flags, va_list args)
 	totallength = 0;
 	while (str[index] != '\0')
 	{
-		if (str[index] == '%')
+		if (str[index] != '%')
 		{
-			
+			totallength += write(1, &str[index], 1);
+		}
+		else
+		{
 			index++;
 			index += parseflags(str + index, flags);
 			fixflags(flags, str[index]);
-			
 			if (str[index] == 'd' || str[index] == 'i')
 			{
-				int tmp = va_arg(args, int);
-				totallength += ft_printint(tmp, flags);
-				
+				int tmparg = va_arg(args, int);
+				totallength += ft_printint(tmparg, flags);
 			}
 			else if (str[index] == 'c')
 			{
-				int tmp = va_arg(args, int);
-				totallength += write(1, &tmp, 1);
+				int tmparg = va_arg(args, int);
+				totallength += ft_printchar(tmparg, flags);
+			}
+			else if (str[index] == 's')
+			{
+				char *tmparg = va_arg(args, char *);
+				totallength += ft_printstring(tmparg, flags);
+			}
+			else if (str[index] == 'x' || str[index] == 'X')
+			{
+				unsigned int tmparg = va_arg(args, unsigned int);
+				totallength += ft_printhex(str[index], tmparg, flags);
+			}
+			else if (str[index] == 'p')
+			{
+				totallength += ft_printpointer((unsigned long int)va_arg(args, void*), flags);
 			}
 		}
-		else
-			totallength+= write(1, &str[index], 1);
 		index++;
-		resetflags(flags);	
+		resetflags(flags);
 	}
 	free(str);
 	return (totallength);
 }
 
-int ft_printf(const char *format, ...)
+int	ft_printf(const char *format, ...)
 {
-	va_list args;
-	int len;
+	va_list		args;
+	t_flagparty	*flags;
+	int			len;
 
 	va_start(args, format);
-	flagparty_t *flags;
-	flags = malloc(sizeof(flagparty_t));
+	flags = malloc(sizeof(t_flagparty));
 	if (!flags)
 		return (0);
 	resetflags(flags);

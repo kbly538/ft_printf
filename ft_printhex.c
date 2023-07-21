@@ -6,50 +6,51 @@
 /*   By: kbilgili <kbilgili@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 02:26:46 by kbilgili          #+#    #+#             */
-/*   Updated: 2023/07/20 05:25:57 by kbilgili         ###   ########.fr       */
+/*   Updated: 2023/07/21 04:22:40 by kbilgili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printhex(char lettercase, long num)
+int	ft_printhex(char lettercase, unsigned int num, t_flagparty *flags)
 {
-	const char		*hexnumslower;
-	const char		*hexnumsupper;
-	char			*hexstr;
-	int				size;
-	long			numcpy;
-	int				len;
+	char	*hexstring;
+	int		printlen;
 
-	hexnumslower = "0123456789abcdef"; 
-	hexnumsupper = "0123456789ABCDEF";
-	numcpy = num;
-	size = 0;
+	printlen = 0;
+	hexstring = ft_xtoa(num, lettercase);
+	if (!hexstring)
+	{
+		free(hexstring);
+		return (0);
+	}
 	if (num == 0)
 	{
-		write(1, "0", 1);
-		return (1);
+		printlen += handlexzero(flags);
+		free(hexstring);
+		return (printlen);
 	}
-	
-	while (numcpy && ++size)
-		numcpy /= 16;
-	
-	hexstr = (char *)malloc(sizeof(char) * (size + 1));
-
-	if (!hexstr)
-		return (0);
-	
-	hexstr[size] = '\0';
-	while (num)
+	if (flags->minus && !flags->zero)
 	{
-		if (lettercase == 'x')
-			hexstr[--size] = ((char)hexnumslower[num % 16]);
-		else
-			hexstr[--size] = ((char)hexnumsupper[num % 16]);
-		num /= 16;
+		if (flags->hash)
+			printlen += ft_print_hashed(lettercase);
+		if (flags->precision)
+			printlen += printpadding('0', ft_precisionlen(hexstring, flags));
+		printlen += write(1, hexstring, ft_strlen(hexstring));
+		printlen += printpadding(' ', ft_paddinglen(hexstring, flags) - flags->hash);
 	}
-	len = ft_strlen(hexstr);
-	free(hexstr);
-	
-	return (len);
+	else if (!flags->minus)
+	{
+		if (flags->hash)
+			printlen += ft_print_hashed(lettercase);
+		if (flags->zero)
+			printlen += printpadding('0', ft_paddinglen(hexstring, flags) - flags->hash);
+		else
+			printlen += printpadding(' ', ft_paddinglen(hexstring, flags) - flags->hash);
+		if (flags->precision )
+			printlen += printpadding('0', ft_precisionlen(hexstring, flags));
+		printlen += write(1, hexstring, ft_strlen(hexstring));
+	}
+	free(hexstring);
+	return (printlen);
 }

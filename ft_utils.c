@@ -6,7 +6,7 @@
 /*   By: kbilgili <kbilgili@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 02:29:58 by kbilgili          #+#    #+#             */
-/*   Updated: 2023/07/20 05:21:39 by kbilgili         ###   ########.fr       */
+/*   Updated: 2023/07/21 02:46:13 by kbilgili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,81 @@ int printpadding(char c, int count)
 	int counter;
 
 	counter = 0;
-	while (count)
+	if (count == 0)
+		return (0);
+	while (count > 0)
 	{
+
 		counter += write(1, &c, 1);
 		count--;
 	}
 	return (counter);
+}
+
+int ft_paddinglen(const char *var, t_flagparty *flags)
+{
+	int	len;
+
+
+	if (!var)
+		len = 0;
+	
+	len = ft_strlen(var);
+
+	if (len >= flags->width && len >= flags->precision)
+		return (0);
+	else if (flags->width > flags->precision && flags->precision > len)
+		return (flags->width - flags->precision);
+	else if (flags->precision < len && flags->width > len)
+		return (flags->width - len);
+	else if (flags->precision >= flags->width)
+		return (0);
+	return (len);
+}
+
+int ft_precisionlen(const char *var, t_flagparty *flags)
+{
+	int	len;
+
+	if (!var)
+		len = 0;
+	len = ft_strlen(var);
+	if (len >= flags->precision)
+		return (0);
+	else if(flags->precision > len)
+		return (flags->precision - len);
+	return (len);
+}
+
+int ft_print_hashed(char c)
+{
+	int count;
+
+	count = 0;
+	if (c == 'x')
+		count += write(1, "0x", 2);
+	else if (c == 'X')
+		count += write(1, "0X", 2);
+	return (count);
+}
+
+int	handlexzero(t_flagparty *flags)
+{
+	int	count;
+
+	count = 0;
+	if (flags->minus && flags->width && !flags->precision)
+	{
+		count += write(1, "0", 1);
+		count += printpadding(' ', flags->width - 1);
+	}
+	else if (flags->width && flags->precision == -1)
+		count += printpadding(' ', flags->width);
+	else if (flags->precision == -1)
+		count += write(1, "", 0);
+	else if (flags->precision)
+		count += printpadding('0', flags->precision);
+	else if (flags->precision == 0)
+		count += write(1, "0", 1);
+	return (count);
 }

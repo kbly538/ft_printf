@@ -3,7 +3,7 @@
 #2 bonus file name must be _bonus.c/.h
 
 #3 Your function has to handle the following conversions: 
-****cspdiuxX%***
+****cspuxX%1***
 
 #4 You have to implement the following conversions:
 • %c Prints a single character.
@@ -42,4 +42,10 @@ under all conversions.
  # optional minimum field width -> []
 	- 
  # optional precision
- # optional length modifier      "%-+0#123.d %x" 
+ # optional length modifier 
+
+
+ s
+  The array must contain a terminating null wide character, unless a precision is given and it is so small that 
+  the number of bytes written exceeds it before the end of the array is reached.
+  ' '  - if empty string leave a space.

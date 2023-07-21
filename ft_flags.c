@@ -6,13 +6,13 @@
 /*   By: kbilgili <kbilgili@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 04:00:26 by kbilgili          #+#    #+#             */
-/*   Updated: 2023/07/20 05:11:38 by kbilgili         ###   ########.fr       */
+/*   Updated: 2023/07/21 00:32:06 by kbilgili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void printflags(flagparty_t *fs)
+void printflags(t_flagparty *fs)
 {
 	printf("	 hash: %d\n", fs->hash);
 	printf("	 zero: %d\n", fs->zero);
@@ -62,7 +62,7 @@ int numlen(int num)
 	}
 	return len;
 }
-void resetflags(flagparty_t *flags)
+void resetflags(t_flagparty *flags)
 {
 	flags->hash = 0;
 	flags->zero = 0;
@@ -73,7 +73,7 @@ void resetflags(flagparty_t *flags)
 	flags->precision = 0;
 }
 
-int parseflags(char *str, flagparty_t *flags)
+int parseflags(char *str, t_flagparty *flags)
 {
 	char *flagsstr;
 	int index;
@@ -83,46 +83,78 @@ int parseflags(char *str, flagparty_t *flags)
 	if (!flagsstr)
 		return (0);
 	index = 0;
-	while (!ismodifier(str[index]) && (str[index] != '\0'))
-	{
 
-		if (str[index] == '#')
-			flags->hash = 1;
-		else if (str[index] == '-')
-			flags->minus = 1;
-		else if (str[index] == '+')
-			flags->plus = 1;
-		else if (str[index] == ' ')
+	while ((str[index] != '\0') && !(ismodifier(str[index])))
+	{
+		while (!(ismodifier(str[index])) && str[index] != '.' && !ft_isdigit(str[index])&& str[index] != '0')
 		{
-			flags->space = 1;
+			if (str[index] == '#')
+				flags->hash = 2;
+			else if (str[index] == '-')
+				flags->minus = 1;
+			else if (str[index] == '+')
+				flags->plus = 1;
+			else if (str[index] == ' ')
+				flags->space = 1;
+			index++;
 		}
-		else if (str[index] == '.' && (str[index + 1] == '0' || ismodifier(str[index + 1])))
+		
+		if (str[index] == '0')
 		{
-	
-			flags->precision = -1;
+			flags->zero = 1;
+			index++;
 		}
-		else if (str[index] == '.' && !ismodifier(str[index + 1]) && str[index + 1] != '\0')
+		if (str[index] == '.')
 		{
 			widthsize = ft_getwidth(str + index + 1);
 			index += numlen(widthsize);
 			flags->precision = widthsize;
-		}
-		else if (ft_isdigit(str[index]) && str[index] != '0' && flags->width == 0)
+			if (flags->precision == 0)
+				flags->precision = -1;
+			index++;
+		}		
+		if (ft_isdigit(str[index]) && str[index] != '0')
 		{
-
+			
 			widthsize = ft_getwidth(str + index);
 			index += numlen(widthsize) - 1;
 			flags->width = widthsize;
-		}
-		else if (str[index] == '0')
-			flags->zero = 1;
+			index++;
 
-		index++;
+		}
+		
+		// printflags(flags);
+				// if (str[index] == '.' && (str[index + 1] == '0' || ismodifier(str[index + 1])))
+		// {
+		// 	flags->precision = -1;
+
+		// }
+		// else if (str[index] == '.' && !ismodifier(str[index + 1]) && str[index + 1] != '\0')
+		// {
+		// 	if (str[index + 1] != 0)
+		// 	{
+		// 		widthsize = ft_getwidth(str + index + 1);
+		// 		index += numlen(widthsize);
+		// 		flags->precision = widthsize;
+		// 	} else
+		// 		flags->precision = -1;
+		// }
+	
+		// else if (ft_isdigit(str[index]) && str[index] != '0' && flags->width == 0)
+		// {
+
+		// 	widthsize = ft_getwidth(str + index);
+		// 	index += numlen(widthsize) - 1;
+		// 	flags->width = widthsize;
+		// }
+		// else if (str[index] == '0')
+		// 	flags->zero = 1;
+		//index++;
 	}
 	free(flagsstr);
 	return (index);
 }
-void fixflags(flagparty_t *flags, char c)
+void fixflags(t_flagparty *flags, char c)
 {
 	if (flags->precision > 0)
 		flags->zero = 0;

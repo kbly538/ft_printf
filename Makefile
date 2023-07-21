@@ -8,7 +8,7 @@ RM				=	rm -rf
 
 SRC				=	ft_printf ft_printchar ft_printint ft_printstring \
 					ft_printhex ft_printpointer ft_printuint ft_utils \
-					ft_processspec ft_processflags ft_flags ft_ldtoa
+					ft_flags ft_ldtoa ft_xtoa ft_ptoa
 SRCS 			=	$(addsuffix .c, $(SRC))
 
 OBJ_DIR			=	obj
