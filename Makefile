@@ -8,7 +8,7 @@ ARFLAGS 		=	rcs
 
 RM				=	rm -rf
 
-LIBFT			=	../libft.a
+LIBFT			=	libft
 
 OBJ_DIR			=	obj
 OBJS			=	$(SRCS:%.c=$(OBJ_DIR)/%.o)
@@ -28,7 +28,6 @@ $(OBJ_DIR)/%.o:		%.c
 					$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME):			$(LIBFT) $(OBJ_DIR) $(OBJS)
-					@cp	$(LIBFT) $(NAME)
 					$(AR) $(ARFLAGS) $(NAME) $(OBJS)
 
 $(LIBFT):

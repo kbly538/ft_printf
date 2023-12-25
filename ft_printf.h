@@ -6,7 +6,7 @@
 /*   By: kbilgili <kbilgili@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 10:44:52 by anlima            #+#    #+#             */
-/*   Updated: 2023/12/17 17:06:33 by kbilgili         ###   ########.fr       */
+/*   Updated: 2023/12/25 04:14:22 by kbilgili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdarg.h>
-# include "../libft.h"
+# include "libft/libft.h"
 
 typedef struct s_flags
 {
