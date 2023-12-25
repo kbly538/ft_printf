@@ -1,7 +1,7 @@
 <h1 align="center">
 	ft_printf
 </h1>
-<p><b><i>A boiled down printf implementation</i></b></p>
+<p align="center"><b><i>A boiled down printf implementation</i></b></p>
 ---
 ## Overview:
 
