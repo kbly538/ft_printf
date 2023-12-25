@@ -2,7 +2,9 @@
 	ft_printf
 </h1>
 <p align="center"><b><i>A boiled down printf implementation</i></b></p>
+
 ---
+
 ## Overview:
 
 This project involves the creation of a custom implementation of the `printf` function in the C programming language. `printf` is a standard output formatting function that is widely used in C and other programming languages. The goal of this project is to create a simplified version of `printf`, supporting a subset of format specifiers and providing essential functionality for formatting and printing output.
