@@ -3,6 +3,13 @@
 </h1>
 <p align="center"><b><i>A boiled down printf implementation</i></b></p>
 
+<p align="center">
+	<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/kbly538/ft_printf?color=lightblue" />
+	<img alt="Number of lines of code" src="https://img.shields.io/badge/total_lines-3064-green" />
+	<img alt="GitHub top language" src="https://img.shields.io/github/languages/top/kbly538/ft_printf?color=blue" />
+	<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/kbly538/ft_printf?color=green" />
+</p>
+
 ---
 
 ## Overview:
